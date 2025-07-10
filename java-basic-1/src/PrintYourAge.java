@@ -5,37 +5,40 @@ public class PrintYourAge {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("現在の年齢を入力してください (qまたはeで終了):");
+            System.out.println("何歳ですか？(qまたはeで終了)");
             String input = scanner.nextLine();
 
-            if (input.equals("q") || input.equals("e")) {
-                System.out.println("プログラムを終了します。");
+            if (input.equals("q") || input.equals("e")) { // 終了コマンド
                 break;
             }
 
             try {
                 int age = Integer.parseInt(input);
 
-                if (age <= 0 || age >= 120) {
+                // マイナス・120以上かチェック
+				if (age < 0 || age >= 120) {
                     System.out.println("年齢は0〜119歳の間で入力してください。");
                     continue;
                 }
 
-                int ageIn2030 = age + (2030 - 2025); // Current year is 2025
-                System.out.println("2030年の年齢: " + ageIn2030 + "歳");
+                System.out.println("あなたは" + age + "歳ですね。");
+				int ageIn2030 = age + 5;
+                System.out.println("2030年には" + ageIn2030 + "歳ですね。"); 
 
                 int birthYear = 2025 - age;
+				System.out.println("生まれた年(西暦)は" + birthYear + "年ですね。");
                 String era = determineEra(birthYear);
-                System.out.println("生まれた年（元号）: " + era);
+                System.out.println("生まれた年(元号)は" + era + "ですね。");
 
-            } catch (NumberFormatException e) {
-                System.out.println("無効な入力です。数値を入力してください。");
+            } catch (NumberFormatException e) { // 数値以外の入力の例外
+                System.out.println("数値で年齢を入力してください。");
             }
         }
         scanner.close();
     }
 
-    public static String determineEra(int year) {
+    // 西暦→元号変換用メソッド
+	public static String determineEra(int year) {
         if (year >= 2019) {
             return "令和" + (year - 2018) + "年";
         } else if (year >= 1989) {
